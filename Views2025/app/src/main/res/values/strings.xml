@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Views2025</string>
+    <string name="greeting">Welcome to Android Development</string>
+    <string name="another">This is another TextView</string>
+    <string name="one_more">This is yet one more TextView</string>
+    <string name="change">Change</string>
+    <string name="change_back">Change Back</string>
+</resources>
