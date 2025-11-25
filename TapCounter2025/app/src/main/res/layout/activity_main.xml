@@ -54,6 +54,53 @@
         app:layout_constraintTop_toBottomOf="@id/countText"
         app:layout_constraintHorizontal_bias="0.5" />
 
+    <Button
+        android:id="@+id/resetButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#FF5722"
+        android:text="@string/reset"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView" />
 
+    <TextView
+        android:id="@+id/topScoresText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/balloonish"
+        android:text="@string/top_5_scores"
+        android:textColor="@color/yellow"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:padding="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/resetButton"
+        app:layout_constraintHorizontal_bias="0.5" />
+
+    <Button
+        android:id="@+id/resetHighScoresButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#FF5722"
+        android:text="@string/reset_high_scores"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topScoresText" />
+
+    <ImageButton
+        android:id="@+id/tapButton"
+        android:layout_width="60dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="250dp"
+        android:background="@drawable/baloon_button"
+        android:contentDescription="@string/tap_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
