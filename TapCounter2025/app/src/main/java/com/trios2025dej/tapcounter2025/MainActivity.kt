@@ -54,7 +54,27 @@ class MainActivity : AppCompatActivity() {
 
         val totalTime = 20 * 1000L
 
+        timer = object : CountDownTimer(totalTime, 1000) {
+
+            override fun onTick(millisUntilFinished: Long) {
+                val secondsLeft = millisUntilFinished / 1000
+                timerText.text = getString(R.string.time_left, secondsLeft)
+            }
+
+            override fun onFinish() {
+                timerText.text = getString(R.string.times_up)
+                tapButton.isEnabled = false
+                isRunning = false
+            }
+
+        }
+
         tapButton.setOnClickListener {
+            if (!isRunning) {
+                isRunning = true
+                timer.start()
+            }
+
             tapCount++
             countText.text = getString(R.string.taps, tapCount)
         }
