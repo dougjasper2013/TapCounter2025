@@ -1,5 +1,6 @@
 package com.trios2025dej.tapcounter2025
 
+import android.content.Context
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -99,4 +100,51 @@ class MainActivity : AppCompatActivity() {
             insets
         }
     }
+
+    private fun updateTopScores() {
+        topScores.add(tapCount)
+        topScores.sortDescending()
+
+        if (topScores.size > 5) {
+            topScores.removeAt(topScores.lastIndex)
+        }
+
+        saveTopScores()
+        displayTopScores()
+    }
+
+    private fun displayTopScores() {
+        val scoreText = StringBuilder(getString(R.string.top_5_scores) + "\n")
+        topScores.forEachIndexed { index, score ->
+            scoreText.append("${index + 1}: $score\n")
+        }
+        topScoresText.text = scoreText.toString()
+    }
+
+    private fun saveTopScores() {
+        val sharedPref = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        val editor = sharedPref.edit()
+        editor.putString(SCORES_KEY, topScores.joinToString(","))
+        editor.apply()
+    }
+
+    private fun loadTopScores() {
+        val sharedPref = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        val savedScores = sharedPref.getString(SCORES_KEY, "")
+
+        if (!savedScores.isNullOrEmpty()) {
+            topScores.clear()
+            topScores.addAll(savedScores.split(",").map { it.toInt() })
+        }
+    }
+
+    private fun clearHighScores() {
+        val sharedPref = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        val editor = sharedPref.edit()
+        editor.remove(SCORES_KEY)
+        editor.apply()
+
+        topScores.clear()
+    }
+
 }
