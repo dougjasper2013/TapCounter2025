@@ -7,6 +7,7 @@ import android.os.CountDownTimer
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -53,6 +54,8 @@ class MainActivity : AppCompatActivity() {
         tapSound = MediaPlayer.create(this, R.raw.tap_sound)
         gameOverSound = MediaPlayer.create(this, R.raw.game_over)
 
+        loadTopScores()
+
         val totalTime = 20 * 1000L
 
         timer = object : CountDownTimer(totalTime, 1000) {
@@ -67,6 +70,7 @@ class MainActivity : AppCompatActivity() {
                 tapButton.isEnabled = false
                 isRunning = false
                 gameOverSound.start()
+                updateTopScores()
             }
 
         }
@@ -94,11 +98,20 @@ class MainActivity : AppCompatActivity() {
             isRunning = false
         }
 
+        resetHighScoresButton.setOnClickListener {
+            clearHighScores()
+            topScoresText.text = getString(R.string.top_5_scores)
+            Toast.makeText(this, getString(R.string.high_scores_cleared), Toast.LENGTH_SHORT).show()
+        }
+
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        displayTopScores()
     }
 
     private fun updateTopScores() {
@@ -145,6 +158,12 @@ class MainActivity : AppCompatActivity() {
         editor.apply()
 
         topScores.clear()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        tapSound.release()
+        gameOverSound.release()
     }
 
 }
